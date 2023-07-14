@@ -1,0 +1,9 @@
+{
+  "common": {
+    "hello": "Hello, {0}!"
+  },
+  "home": {
+    "title": "Home",
+    "welcome": "Welcome to My App!"
+  }
+}
