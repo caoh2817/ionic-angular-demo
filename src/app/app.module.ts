@@ -7,12 +7,34 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  AuthConfig,
+  AuthHttpInterceptor,
+  AuthModule,
+} from '@auth0/auth0-angular';
+import { callbackUri, clientId, domain } from './auth.config';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const config: AuthConfig = {
+  domain,
+  clientId,
+  authorizationParams: {
+    redirect_uri: callbackUri,
+  },
+  // For using Auth0-Angular with Ionic on Android and iOS,
+  // it's important to use refresh tokens without the falback
+  useRefreshTokens: true,
+  useRefreshTokensFallback: false,
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +51,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    AuthModule.forRoot(config),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
