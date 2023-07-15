@@ -5,6 +5,7 @@ import { App } from '@capacitor/app';
 import { mergeMap } from 'rxjs';
 import { Browser } from '@capacitor/browser';
 import { callbackUri } from './auth.config';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     public auth: AuthService,
     private ngZone: NgZone,
+    public themeService: ThemeService,
   ) {
     this.translate.setDefaultLang('zh');
     this.translate.use('zh');

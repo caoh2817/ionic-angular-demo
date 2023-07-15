@@ -1,0 +1,20 @@
+<ion-content class="user-menu-modal">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Menu</ion-label>
+    </ion-list-header>
+    <ion-item-group>
+      <ion-item-divider color="light">设置</ion-item-divider>
+      <ion-item (click)="navTo('settings')" lines="none">
+        <ion-icon name="settings"></ion-icon>
+        设置
+      </ion-item>
+      <ion-item-divider color="light">账户</ion-item-divider>
+      <ion-item (click)="auth0.logout()" lines="none">
+        <ion-icon name="log-out"></ion-icon>
+        退出登录
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+</ion-content>

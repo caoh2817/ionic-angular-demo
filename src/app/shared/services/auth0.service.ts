@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
-import { switchMap } from 'rxjs';
 import { Browser } from '@capacitor/browser';
 
 import { callbackUri } from '../../auth.config';
 
 @Injectable({ providedIn: 'root' })
 export class Auth0Service {
-  user$ = this.auth0.isAuthenticated$.pipe(switchMap(() => this.auth0.user$));
-  user: User | null | undefined;
-
+  user = {} as User;
   constructor(public auth0: AuthService) {
-    this.user$.subscribe((user) => (this.user = user));
+    this.auth0.user$.subscribe(async (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
   }
 
   login() {
@@ -37,16 +38,11 @@ export class Auth0Service {
       .subscribe();
   }
 
-  getOwnerID() {
-    if (!this.hasLoginInfo()) return null;
-    return this.user?.sub?.replace('auth0|', '');
+  getOwnerId() {
+    return this.user.sub?.split('|')[1];
   }
 
-  isGuest() {
-    return !this.hasLoginInfo();
-  }
-
-  private hasLoginInfo() {
-    return !!this.user;
+  getUser() {
+    return this.auth0.user$;
   }
 }

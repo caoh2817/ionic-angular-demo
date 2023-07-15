@@ -29,7 +29,9 @@ const config: AuthConfig = {
   clientId,
   authorizationParams: {
     redirect_uri: callbackUri,
+    ui_locales: 'zh-CN',
   },
+  cacheLocation: 'localstorage',
   // For using Auth0-Angular with Ionic on Android and iOS,
   // it's important to use refresh tokens without the falback
   useRefreshTokens: true,
@@ -40,7 +42,10 @@ const config: AuthConfig = {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios',
+      backButtonText: '',
+    }),
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { TabsComponent } from './components/tabs/tabs.component';
 import { IonicModule } from '@ionic/angular';
 
+import { TabsComponent } from './components/tabs/tabs.component';
+import { UserMenuComponent } from './components/user-menu/user-menu.component';
+
 @NgModule({
-  declarations: [TabsComponent],
+  declarations: [TabsComponent, UserMenuComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -22,6 +24,8 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    IonicModule,
+    UserMenuComponent,
   ],
 })
 export class SharedModule {}

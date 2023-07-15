@@ -19,6 +19,13 @@ const routes: Routes = [
           import('./pages/home/home.module').then((m) => m.HomePageModule),
       },
       {
+        path: 'toolbox',
+        loadChildren: () =>
+          import('./pages/toolbox/toolbox.module').then(
+            (m) => m.ToolboxPageModule,
+          ),
+      },
+      {
         path: 'my',
         canActivate: [AuthGuard],
         loadChildren: () =>
@@ -26,14 +33,21 @@ const routes: Routes = [
             (m) => m.MyHomePageModule,
           ),
       },
-      {
-        path: 'edit-profile',
-        loadChildren: () =>
-          import('./pages/my/edit-profile/edit-profile.module').then(
-            (m) => m.EditProfilePageModule,
-          ),
-      },
     ],
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () =>
+      import('./pages/my/edit-profile/edit-profile.module').then(
+        (m) => m.EditProfilePageModule,
+      ),
+  },
+  {
+    path: 'settings',
+    loadChildren: () =>
+      import('./pages/my/settings/settings.module').then(
+        (m) => m.SettingsPageModule,
+      ),
   },
 ];
 @NgModule({

@@ -1,0 +1,10 @@
+.user-menu-modal {
+  width: 250px;
+
+  .menu-items {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--ion-color-step-500);
+  }
+}

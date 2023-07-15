@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>my-home</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>我的主页</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div>my-home</div>
+  <!-- 个人资料卡片 -->
+  <ion-card *ngIf="auth0.user$ | async as user">
+    <ion-card-content>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="user.picture" [alt]="user.name"/>
+        </ion-avatar>
+        <ion-label>{{user.nickname || user.name}}</ion-label>
+        <ion-button (click)="editProfile()">
+          <ion-icon name="pencil"></ion-icon>
+          编辑个人资料
+        </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 功能模块 -->
+  <ion-list lines="none" class="function-list">
+    <ion-item class="function-item" (click)="goToOrders()">
+      <ion-icon name="cart-outline"></ion-icon>
+      <ion-text>我的订单</ion-text>
+    </ion-item>
+    <ion-item class="function-item">
+      <ion-icon name="heart-outline"></ion-icon>
+      <ion-text>收藏夹</ion-text>
+    </ion-item>
+    <ion-item class="function-item">
+      <ion-icon name="location-outline"></ion-icon>
+      <ion-text>地址簿</ion-text>
+    </ion-item>
+  </ion-list>
 </ion-content>
